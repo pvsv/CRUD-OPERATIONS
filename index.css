@@ -1,0 +1,25 @@
+body {
+  background-color: aquamarine;
+}
+form {
+  border: 1px solid red;
+  padding: 10px;
+}
+.htm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  margin-left: -120px;
+  box-shadow: 2px;
+}
+.drop {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin-left: -180px;
+}
+.head {
+  box-shadow: coral;
+  text-align: center;
+}

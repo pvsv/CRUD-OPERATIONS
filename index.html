@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crud Operations</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="head">
+      <h1>CRUD operations Output generated in the console</h1>
+    </header>
+    <div class="htm">
+      <form>
+        <label for="fname">First Name:</label>
+        <input
+          type="text"
+          id="fname"
+          placeholder="Enter your First name"
+          name="fname"
+        /><br /><br />
+
+        <label for="lname">Last Name:</label>
+        <input
+          type="text"
+          id="lname"
+          placeholder="Enter your Last name"
+          name="lname"
+        /><br /><br />
+
+        <label for="newFirstName">Updated Name:</label>
+        <input
+          type="text"
+          id="newfname"
+          placeholder="Enter your new first name"
+          name="newFirstName"
+        /><br /><br />
+      </form>
+      <div class="drop">
+        <br /><br /><br />
+        <br /><br /><br />
+        <br /><br /><br />
+        <br /><br /><br />
+
+        <select id="method">
+          <option value="GET">Get</option>
+          <option value="POST">Post</option>
+          <option value="PUT">Put</option>
+          <option value="DELETE">Delete</option></select
+        ><br /><br />
+        <input type="button" value="submit" onclick="submitForm()" />
+      </div>
+    </div>
+    <script>
+      function submitForm() {
+        var firstname = document.getElementById("fname").value;
+        var lastname = document.getElementById("lname").value;
+        var newfirstname = document.getElementById("newfname").value;
+        var method = document.getElementById("method").value;
+
+        var data = {};
+        if (method === "POST") {
+          if (!lastname || !firstname) {
+            console.error("Missing input field");
+            return;
+          }
+          data = {
+            fname: firstname,
+            lname: lastname,
+          };
+        } else if (method === "PUT") {
+          if (!newfirstname || !firstname) {
+            console.error("MIssing input field value");
+            return;
+          }
+          data = {
+            fname: firstname,
+            newfname: newfirstname,
+          };
+        } else if (method === "DELETE") {
+          if (!firstname) {
+            console.error("Missing input field");
+          }
+          data = {
+            fname: firstname,
+          };
+        }
+        console.log(data);
+        fetch("http://localhost:3000/", {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: method === "GET" ? null : JSON.stringify(data),
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error(error));
+      }
+    </script>
+  </body>
+</html>
